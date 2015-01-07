@@ -8,7 +8,6 @@ from pure_prob_predictor import PureProbPredictor
 from matrix_predictor import MatrixPredictor
 from random_predictor import RandomPredictor
 from markov_predictor import MarkovPredictor
-from heuristic2_predictor import Heuristic2Predictor
 from delta_predictor import DeltaPredictor
 predictors = list()
 predictors.append(HeuristicPredictor)
@@ -16,7 +15,6 @@ predictors.append(PureProbPredictor)
 predictors.append(RandomPredictor)
 predictors.append(MarkovPredictor)
 #predictors.append(MatrixPredictor)
-predictors.append(Heuristic2Predictor)
 predictors.append(DeltaPredictor)
 
 if __name__ == '__main__':
