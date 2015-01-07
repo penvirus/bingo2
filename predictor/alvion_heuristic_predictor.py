@@ -7,7 +7,7 @@ class AlvionHeuristicPredictor(Predictor):
         self._depth = 5
 
     def get_name(self):
-        return 'Alvion Heuristic Predictor'
+        return 'Alvion Heuristic Predictor  (#%d)' % self._depth
 
     def predict(self, target_period=None, dataset_begin=None, dataset_end=None, debug=False):
         if target_period is None:

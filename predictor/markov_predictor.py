@@ -8,6 +8,12 @@ class MarkovPredictor(Predictor):
 
         self._target = 2
 
+    def is_configurable(self):
+        return True
+
+    def set_target(self, target):
+        self._target = target
+
     def get_name(self):
         return 'Markov Predictor  (t%d)' % self._target
 
