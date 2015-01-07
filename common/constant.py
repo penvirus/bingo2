@@ -1,6 +1,6 @@
 import os
 
-WORK_DIR = os.path.join('/tmp', os.environ['USER'])
+WORK_DIR = os.path.join('/tmp', 'bingo2_%s' % os.environ['USER'])
 if not os.path.exists(WORK_DIR):
     os.mkdir(WORK_DIR)
 
