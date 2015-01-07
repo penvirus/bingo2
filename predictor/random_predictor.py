@@ -1,6 +1,7 @@
-from predictor import Predictor
 import random
 import time
+
+from predictor import Predictor
 
 class RandomPredictor(Predictor):
     def get_name(self):

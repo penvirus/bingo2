@@ -1,10 +1,11 @@
 import os
 import copy
-from constant import COOKED_DATA_DIR
 import cPickle as pickle
 from operator import itemgetter
-from predictor import Predictor
 from matrix import Matrix
+
+from predictor import Predictor
+from common.constant import COOKED_DATA_DIR
 
 def print_bitmap(bitmap):
     for i in bitmap:

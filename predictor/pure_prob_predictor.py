@@ -1,5 +1,6 @@
-from predictor import Predictor
 from operator import itemgetter
+
+from predictor import Predictor
 
 def my_pprint(it, dest):
     i = 1

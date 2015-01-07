@@ -1,5 +1,6 @@
-from predictor import Predictor
 from operator import itemgetter
+
+from predictor import Predictor
 
 class MarkovPredictor(Predictor):
     def __init__(self):

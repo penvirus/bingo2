@@ -13,9 +13,12 @@ class AlvionHeuristicPredictor(Predictor):
         if target_period is None:
             target_period = self.get_max_period() + 1
 
-        history = list()
-        for p in xrange(target_period - 1, target_period - 1 - self._depth, -1):
-            history.append(self._all_data[p]['numbers'])
+        try:
+            history = list()
+            for p in xrange(target_period - 1, target_period - 1 - self._depth, -1):
+                history.append(self._all_data[p]['numbers'])
+        except IndexError:
+            return self.no_comment(target_period, debug)
 
         dup = list()
         dup.append(history[0])

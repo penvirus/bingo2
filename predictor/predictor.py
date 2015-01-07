@@ -1,5 +1,6 @@
 import cPickle as pickle
-from constant import PICKLE_FILENAME
+
+from common.constant import PICKLE_FILENAME
 
 class Predictor(object):
     def __init__(self):
@@ -11,6 +12,23 @@ class Predictor(object):
 
     def get_min_period(self):
         return min(self._all_data.keys())
+
+    def is_configurable(self):
+        return False
+
+    def set_target(self, target):
+        pass
+
+    def no_comment(self, target_period, debug):
+        if debug:
+            output = list()
+            output.append('period: %s' % target_period)
+            output.append('candidate: no comment')
+        else:
+            output = dict()
+            output['period'] = target_period
+            output['numbers'] = list()
+        return output
 
     def get_name(self):
         """
