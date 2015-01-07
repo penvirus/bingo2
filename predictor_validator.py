@@ -5,7 +5,6 @@ from reward import reward_table
 
 from heuristic_predictor import HeuristicPredictor
 from pure_prob_predictor import PureProbPredictor
-from gg_predictor import GGPredictor
 from matrix_predictor import MatrixPredictor
 from random_predictor import RandomPredictor
 from markov_predictor import MarkovPredictor
@@ -14,7 +13,6 @@ from delta_predictor import DeltaPredictor
 predictors = list()
 predictors.append(HeuristicPredictor)
 predictors.append(PureProbPredictor)
-predictors.append(GGPredictor)
 predictors.append(RandomPredictor)
 predictors.append(MarkovPredictor)
 #predictors.append(MatrixPredictor)
