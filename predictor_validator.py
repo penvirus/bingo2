@@ -3,14 +3,14 @@ import cPickle as pickle
 from constant import PICKLE_FILENAME
 from reward import reward_table
 
-from heuristic_predictor import HeuristicPredictor
+from alvion_heuristic_predictor import Alvion_HeuristicPredictor
 from pure_prob_predictor import PureProbPredictor
 from matrix_predictor import MatrixPredictor
 from random_predictor import RandomPredictor
 from markov_predictor import MarkovPredictor
 from delta_predictor import DeltaPredictor
 predictors = list()
-predictors.append(HeuristicPredictor)
+predictors.append(AlvionHeuristicPredictor)
 predictors.append(PureProbPredictor)
 predictors.append(RandomPredictor)
 predictors.append(MarkovPredictor)

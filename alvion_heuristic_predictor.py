@@ -1,13 +1,13 @@
 from predictor import Predictor
 
-class HeuristicPredictor(Predictor):
+class AlvionHeuristicPredictor(Predictor):
     def __init__(self):
-        super(HeuristicPredictor, self).__init__()
+        super(AlvionHeuristicPredictor, self).__init__()
 
         self._depth = 5
 
     def get_name(self):
-        return 'Heuristic Predictor'
+        return 'Alvion Heuristic Predictor'
 
     def predict(self, target_period=None, dataset_begin=None, dataset_end=None, debug=False):
         if target_period is None:
@@ -79,5 +79,5 @@ class HeuristicPredictor(Predictor):
         return output
 
 if __name__ == '__main__':
-    p = HeuristicPredictor()
+    p = AlvionHeuristicPredictor()
     print '\n'.join(p.predict(debug=True))
