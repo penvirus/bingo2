@@ -1,11 +1,8 @@
-import cPickle as pickle
-
-from common.constant import PICKLE_FILENAME
+from crawler.num_extractor import load
 
 class Predictor(object):
     def __init__(self):
-        with open(PICKLE_FILENAME, 'r') as ff:
-            self._all_data = pickle.load(ff)
+        self._all_data = load()
 
     def get_max_period(self):
         return max(self._all_data.keys())

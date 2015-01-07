@@ -8,7 +8,10 @@ class DeltaPredictor(Predictor):
         if target_period is None:
             target_period = self.get_max_period() + 1
 
-        prev_numbers = self._all_data[target_period - 1]['numbers']
+        try:
+            prev_numbers = self._all_data[target_period - 1]['numbers']
+        except KeyError:
+            return self.no_comment(target_period, debug)
 
         candidate = list()
         for num in prev_numbers:

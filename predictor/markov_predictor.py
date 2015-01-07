@@ -16,14 +16,9 @@ class MarkovPredictor(Predictor):
             target_period = self.get_max_period() + 1
 
         try:
-            self._all_data[target_period - 1]
+            prev_period = self._all_data[target_period - 1]['numbers']
         except KeyError:
-            output = dict()
-            output['period'] = target_period
-            output['numbers'] = []
-            return output
-
-        prev_period = self._all_data[target_period - 1]['numbers']
+            return self.no_comment(target_period, debug)
 
         # initialize
         all_prob = list()

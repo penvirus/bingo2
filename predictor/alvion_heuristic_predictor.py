@@ -17,7 +17,7 @@ class AlvionHeuristicPredictor(Predictor):
             history = list()
             for p in xrange(target_period - 1, target_period - 1 - self._depth, -1):
                 history.append(self._all_data[p]['numbers'])
-        except IndexError:
+        except KeyError:
             return self.no_comment(target_period, debug)
 
         dup = list()
