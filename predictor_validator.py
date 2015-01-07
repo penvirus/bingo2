@@ -3,7 +3,7 @@ import cPickle as pickle
 from constant import PICKLE_FILENAME
 from reward import reward_table
 
-from alvion_heuristic_predictor import Alvion_HeuristicPredictor
+from alvion_heuristic_predictor import AlvionHeuristicPredictor
 from pure_prob_predictor import PureProbPredictor
 from matrix_predictor import MatrixPredictor
 from random_predictor import RandomPredictor
