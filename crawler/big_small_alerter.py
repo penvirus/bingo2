@@ -57,26 +57,48 @@ def get_max_period(all_data):
 def get_min_period(all_data):
     return min(all_data.keys())
 
-mail_list = 'thsu@varmour.com,newbug@varmour.com,alvion@varmour.com,slin@varmour.com,tshih@varmour.com'
-threshold = 10
+mail_list = 'thsu@varmour.com,newbug@varmour.com,alvion@varmour.com,slin@varmour.com,marktseng@varmour.com,tshih@varmour.com'
+mail_list = 'tshih@varmour.com'
+threshold = 15
 
 def start_service():
     now = '%s' % datetime.datetime.now()
-    msg = "Bingo Bingo Bot is now serving for you.\n\nCurrent threshold is %d, that is, if the bingo result has been even for more than %d times, the Bingo2Bot will notify you.\n" % (threshold, threshold)
-    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo Bingo Alert Service Up: %s' % now, '-t', mail_list], close_fds=True, stdin=PIPE)
+    msg = "Bingo2 Bot is now serving for you.\n\nCurrent threshold is %d, that is, if the bingo result has been even for more than %d times, the Bingo2Bot will notify you.\n" % (threshold, threshold)
+    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo2 Alert Service Up: %s, threshold is %d' % (now, threshold), '-t', mail_list], close_fds=True, stdin=PIPE)
     p.communicate(msg)
 
 def stop_service(a, b):
     now = '%s' % datetime.datetime.now()
-    msg = "Bingo Bingo Bot is stopped.\n"
-    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo Bingo Alert Service Down: %s' % now, '-t', mail_list], close_fds=True, stdin=PIPE)
+    msg = "Bingo2 Bot is stopped.\n"
+    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo2 Alert Service Down: %s' % now, '-t', mail_list], close_fds=True, stdin=PIPE)
     p.communicate(msg)
     sys.exit(0)
+
+def send_alert(max_period, combo):
+    msgs = list()
+    msgs.append('Newest period: %d' % max_period)
+    msgs.append('Has been even for %d round.' % combo)
+    msgs.append('')
+    msgs.append('Please check the web page http://lotto.auzonet.com/bingobingo.php for further information.')
+    msg = '\n'.join(msgs)
+    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo2 Alert Message: target period is [%d], even for [%d] times' % (max_period + 1, combo), '-t', mail_list], close_fds=True, stdin=PIPE)
+    p.communicate(msg)
+
+def send_abort(max_period, big_small):
+    msgs = list()
+    msgs.append('Newest period: %d' % max_period)
+    msgs.append('Has been "%s"' % big_small)
+    msgs.append('')
+    msgs.append('Please check the web page http://lotto.auzonet.com/bingobingo.php for further information.')
+    msg = '\n'.join(msgs)
+    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo2 Alert Message: ABORT!!' % (max_period + 1, combo), '-t', mail_list], close_fds=True, stdin=PIPE)
+    p.communicate(msg)
 
 if __name__ == '__main__':
     today = date.today()
     url = '%s%s' % (DATA_SOURCE, 'list_%04d%02d%02d.html' % (today.year, today.month, today.day))
     saved_max_period = 0
+    alerted = False
 
     signal.signal(signal.SIGINT, stop_service)
     start_service()
@@ -107,12 +129,15 @@ if __name__ == '__main__':
                         break
 
                 if combo >= threshold:
-                    msg = "Newest period: %d\nHas been even for %d round.\n\nPlease check the web page http://lotto.auzonet.com/bingobingo.php for further information.\n" % (max_period, combo)
-                    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo Bingo Alert Message For Next Period [%d]' % (max_period + 1), '-t', mail_list], close_fds=True, stdin=PIPE)
-                    p.communicate(msg)
+                    send_alert(max_period, combo)
+                    alerted = True
+                else:
+                    if alerted:
+                        send_abort(max_period, all_data[max_period]['big_small'])
+                        alerted = False
             print 'success'
         else:
             print 'failed'
         sys.stdout.flush()
 
-        time.sleep(280)
+        time.sleep(30)
