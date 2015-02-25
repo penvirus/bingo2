@@ -6,15 +6,13 @@ import sys
 import time
 import requests
 from datetime import date
-from datetime import timedelta
-import cPickle as pickle
 import xml.etree.ElementTree as ET
 from cStringIO import StringIO
 from subprocess import Popen, PIPE
 import signal
 import datetime
 
-from common.constant import RAW_DATA_DIR, PICKLE_FILENAME, DATA_SOURCE
+from common.constant import DATA_SOURCE
 
 def extract_from_line(line, dest):
     root = ET.fromstring(line)
@@ -90,7 +88,7 @@ def send_abort(max_period, big_small):
     msgs.append('')
     msgs.append('Please check the web page http://lotto.auzonet.com/bingobingo.php for further information.')
     msg = '\n'.join(msgs)
-    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo2 Alert Message: ABORT!!' % (max_period + 1, combo), '-t', mail_list], close_fds=True, stdin=PIPE)
+    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo2 Alert Message: ABORT!!', '-t', mail_list], close_fds=True, stdin=PIPE)
     p.communicate(msg)
 
 if __name__ == '__main__':
