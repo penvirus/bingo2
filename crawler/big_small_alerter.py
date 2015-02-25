@@ -58,7 +58,6 @@ def get_min_period(all_data):
     return min(all_data.keys())
 
 mail_list = 'thsu@varmour.com,newbug@varmour.com,alvion@varmour.com,slin@varmour.com,marktseng@varmour.com,tshih@varmour.com'
-mail_list = 'tshih@varmour.com'
 threshold = 15
 
 def start_service():
