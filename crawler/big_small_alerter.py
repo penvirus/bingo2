@@ -58,16 +58,17 @@ def get_min_period(all_data):
     return min(all_data.keys())
 
 mail_list = 'thsu@varmour.com,newbug@varmour.com,alvion@varmour.com,slin@varmour.com,tshih@varmour.com'
+threshold = 10
 
 def start_service():
     now = '%s' % datetime.datetime.now()
-    msg = "Bingo Bingo Bot is now serving for you."
+    msg = "Bingo Bingo Bot is now serving for you.\n\nCurrent threshold is %d, that is, if the bingo result has been even for more than %d times, the Bingo2Bot will notify you.\n" % (threshold, threshold)
     p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo Bingo Alert Service Up: %s' % now, '-t', mail_list], close_fds=True, stdin=PIPE)
     p.communicate(msg)
 
 def stop_service(a, b):
     now = '%s' % datetime.datetime.now()
-    msg = "Bingo Bingo Bot is stopped."
+    msg = "Bingo Bingo Bot is stopped.\n"
     p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo Bingo Alert Service Down: %s' % now, '-t', mail_list], close_fds=True, stdin=PIPE)
     p.communicate(msg)
     sys.exit(0)
@@ -105,8 +106,8 @@ if __name__ == '__main__':
                     else:
                         break
 
-                if combo > 10:
-                    msg = "Newest period: %d\nHas been even for %d round.\n" % (max_period, combo)
+                if combo >= threshold:
+                    msg = "Newest period: %d\nHas been even for %d round.\n\nPlease check the web page http://lotto.auzonet.com/bingobingo.php for further information.\n" % (max_period, combo)
                     p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo Bingo Alert Message For Next Period [%d]' % (max_period + 1), '-t', mail_list], close_fds=True, stdin=PIPE)
                     p.communicate(msg)
             print 'success'
