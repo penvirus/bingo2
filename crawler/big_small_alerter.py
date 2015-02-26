@@ -92,8 +92,6 @@ def send_abort(max_period, big_small):
     p.communicate(msg)
 
 if __name__ == '__main__':
-    today = date.today()
-    url = '%s%s' % (DATA_SOURCE, 'list_%04d%02d%02d.html' % (today.year, today.month, today.day))
     saved_max_period = 0
     alerted = False
 
@@ -101,6 +99,8 @@ if __name__ == '__main__':
     start_service()
 
     while True:
+        today = date.today()
+        url = '%s%s' % (DATA_SOURCE, 'list_%04d%02d%02d.html' % (today.year, today.month, today.day))
         print 'fetching %s...' % url,
         sys.stdout.flush()
 
