@@ -113,26 +113,29 @@ if __name__ == '__main__':
             extract_from_file(fake_file, all_data)
             fake_file.close()
 
-            max_period = get_max_period(all_data)
-            min_period = get_min_period(all_data)
-            if max_period > saved_max_period:
-                saved_max_period = max_period
+            if all_data:
+                max_period = get_max_period(all_data)
+                min_period = get_min_period(all_data)
+                if max_period > saved_max_period:
+                    saved_max_period = max_period
 
-                combo = 0
-                for i in xrange(max_period, min_period, -1):
-                    if all_data[i]['big_small'] == 'even':
-                        combo += 1
+                    combo = 0
+                    for i in xrange(max_period, min_period, -1):
+                        if all_data[i]['big_small'] == 'even':
+                            combo += 1
+                        else:
+                            break
+
+                    if combo >= threshold:
+                        send_alert(max_period, combo)
+                        alerted = True
                     else:
-                        break
-
-                if combo >= threshold:
-                    send_alert(max_period, combo)
-                    alerted = True
-                else:
-                    if alerted:
-                        send_abort(max_period, all_data[max_period]['big_small'])
-                        alerted = False
-            print 'success'
+                        if alerted:
+                            send_abort(max_period, all_data[max_period]['big_small'])
+                            alerted = False
+                print 'success'
+            else:
+                print 'skip'
         else:
             print 'failed'
         sys.stdout.flush()
