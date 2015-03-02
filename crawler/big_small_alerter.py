@@ -88,7 +88,7 @@ def send_abort(max_period, big_small):
     msgs.append('')
     msgs.append('Please check the web page http://lotto.auzonet.com/bingobingo.php for further information.')
     msg = '\n'.join(msgs)
-    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo2 Alert Message: ABORT!!', '-t', mail_list], close_fds=True, stdin=PIPE)
+    p = Popen(['mail', '-a', 'From: Bingo2Bot <bingo2bot@varmour.com>', '-s', 'Bingo2 Alert Message: period [%d] has been "%s", ABORT!!' % (max_period, big_small), '-t', mail_list], close_fds=True, stdin=PIPE)
     p.communicate(msg)
 
 if __name__ == '__main__':
