@@ -98,11 +98,16 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, stop_service)
     start_service()
 
+    saved_today = date.today()
     while True:
         today = date.today()
         url = '%s%s' % (DATA_SOURCE, 'list_%04d%02d%02d.html' % (today.year, today.month, today.day))
         print 'fetching %s...' % url,
         sys.stdout.flush()
+
+        if today != saved_today:
+            saved_today = today
+            alerted = False
 
         r = requests.get(url)
         if r.status_code == 200:
@@ -133,7 +138,7 @@ if __name__ == '__main__':
                         if alerted:
                             send_abort(max_period, all_data[max_period]['big_small'])
                             alerted = False
-                print 'success'
+                print 'combo is %d' % combo
             else:
                 print 'skip'
         else:
